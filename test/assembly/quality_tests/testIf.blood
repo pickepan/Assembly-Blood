@@ -1,0 +1,78 @@
+class Obj()is{
+    var int: Integer;
+    var next : Obj;
+    def Obj(int : Integer) is {
+      this.int := int;
+      if(this.int) then {
+        "vrai".println();
+      }
+      else{
+        "faux".println();
+      }
+    }
+    def getInt(): Integer is{
+      result := this.int;
+    }
+}
+{
+  variable : Integer := 1;
+  objet : Obj;
+  objet2 : Obj;
+  is
+  "Test if ---------------\n".println();
+  if variable = 1 then{
+    "Test1 : OK -> if variable = int".println();
+  }
+  else{
+    "Test1 : ERREUR -> if variable = int".println();
+  }
+  if variable then{
+    "Test2 : OK -> if variable (variable:=1)".println();
+  }
+  else{
+    "Test2 : ERREUR -> if variable (variable:=1)".println();
+  }
+  variable := 10;
+  if variable then{
+    "Test3 : OK -> if variable (variable:=10)".println();
+  }
+  else{
+    "Test3 : ERREUR -> if variable (variable:=10)".println();
+  }
+  variable := 0;
+  if variable then{
+    "Test4 : ERREUR -> if variable (variable:=0)".println();
+  }
+  else{
+    "Test4 : OK -> if variable (variable:=0)".println();
+  }
+  variable := 8;
+  if variable = 3*3-1 then{
+    "Test5 : OK -> if variable = operation".println();
+  }
+  else{
+    "Test5 : ERREUR -> if variable = operation".println();
+  }
+  if 0 then{
+    "Test6 : ERREUR -> if 0".println();
+  }
+  else{
+    "Test6 : OK -> if 0".println();
+  }
+  if 1 then{
+    "Test7 : OK -> if 1".println();
+  }
+  else{
+    "Test7 : ERREUR -> if 1".println();
+  }
+  objet := new Obj(15);
+  objet2 := new Obj(0);
+  /*
+  if objet.int < 30 && objet.int > 12 then{
+    "Test8 : OK -> if objet.Integer condition".println();
+  }
+  else{
+    "Test8 : ERREUR -> if objet.Integer condition".println();
+  }*/
+  "\n\n".println();
+}

@@ -1,0 +1,43 @@
+class Composant(var id : Integer) is {
+	
+	var estEnPanne : Integer;
+
+	def declencherPanne() is {
+		estEnPanne := 1;
+	}
+
+}
+
+class Processeur() extends Composant is {
+	
+	var frequence 	: Float;
+	var nbCoeur		: Integer;
+	var modele		: String;
+
+	def Processeur(id : Integer, f : Float, nc : Integer, m : String) is {
+		frequence 	:= f;
+		nbCoeur 	:= nc;
+		modele		:= m;
+	}
+
+}
+
+class RAM() extends Composant is {
+	
+	var capacite 	: Integer;
+	var type		: String;
+
+	var static nbBarrettes : Integer;
+
+	def RAM(id : Integer, c : Integer, t : String) is {
+		capacite 	:= c;
+		type		:= t;
+
+		nbBarettes := nbBarettes + 1;
+	}
+
+	def static getNbBarrettes() : Integer := nbBarrettes
+
+}
+
+{}

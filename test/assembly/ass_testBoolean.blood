@@ -1,0 +1,45 @@
+class Objet() is{
+	var y: Integer;
+	var x: Integer;
+	def Objet(y:Integer) is{
+		this.x:=y-3;
+		this.y:=y;
+
+		if ( this.x < this.y) then {"yes".println();}
+		else{"no".println();}
+	}
+}
+{
+	x:Integer;
+	o:Objet;
+	p:Objet;
+	y:Integer;
+	s:Integer;
+	
+	is
+	
+	x:=5;
+	o:=new Objet(x);
+	"o.y=".print();
+	o.y.toString().println();
+	
+	y:=0;
+	p:=new Objet(y);
+	"p.y=".print();
+	p.y.toString().println();
+	
+	s:=(o.y <> p.y);
+	"s=".print();
+	s.toString().println();
+	
+	if (o.y = p.y) then{
+		"yesmain".println();
+	}
+	else{
+		"nomain".println();
+	}
+	
+	
+
+}
+

@@ -1,0 +1,193 @@
+EXIT_EXC	EQU 64
+READ_EXC	EQU 65
+WRITE_EXC	EQU 66
+STACK_ADRS	EQU	0x1000
+LOAD_ADRS	EQU 0xF000
+NIL			EQU 0
+SP			EQU	R15
+WR 			EQU R14
+BP 			EQU R13
+
+ORG 		LOAD_ADRS
+START 		main_
+
+
+STRING0	string "Hello world"
+
+rodata_line_feed_
+BYTE                    10
+BYTE                    0
+
+print_string
+                                stw     BP, -(SP)
+                                ldw     BP, SP
+                                stw     R0, -(SP)
+
+                                // string address
+                                ldw     R0, (BP)4
+                                // syscall
+                                trp     #WRITE_EXC
+
+                                ldq     0, R0
+
+                                ldw     R0, (SP)+
+                                ldw     BP, (SP)+
+                                rts
+
+print_newline
+                                stw     BP, -(SP)
+                                ldw     BP, SP
+                                stw     R0, -(SP)
+
+                                // string address
+                                ldw     R0, #rodata_line_feed_
+                                // syscall
+                                trp     #WRITE_EXC
+
+                                ldq     0, R0
+
+                                ldw     R0, (SP)+
+                                ldw     BP, (SP)+
+                                rts
+
+abs_short
+                                stw     BP, -(SP)
+                                ldw     BP, SP
+                                stw     R1, -(SP)
+
+                                // short
+                                ldw     R0, (BP)4
+                                // sign bit
+                                ani     R0, R1, #0x8000
+                                // positive
+                                beq     abs_short_exit - $ - 2
+                                // negative
+                                neg     R0, R0
+        abs_short_exit
+
+                                ldw     R1, (SP)+
+                                ldw     BP, (SP)+
+                                rts
+
+print_short
+                                stw     BP, -(SP)
+                                ldw     BP, SP
+                                stw     R0, -(SP)
+                                stw     R1, -(SP)
+                                stw     R2, -(SP)
+
+                                // signed short < 8 characters (with padding)
+                                adq     -8, SP
+                                // null character
+                                ldq     0, R2
+                                stw     R2, (SP)6
+                                // current character
+                                ldw     R2, SP
+                                adq     5, R2
+                                // signed short integer
+                                ldw     R0, (BP)4
+                                // abs
+                                stw     R0, -(SP)
+                                jsr     @abs_short
+                                adq     2, SP
+        print_short_loop
+                                // divide by 10
+                                ldq     10, R1
+                                div     R0, R1, R1
+                                // add ASCII offset
+                                adq     48, R0
+                                // store character
+                                stb     R0, (R2)
+                                // decrement current character
+                                adq     -1, R2
+                                // prepare next iteration
+                                ldw     R0, R1
+                                // next interation
+                                bne     print_short_loop - $ - 2
+                                // signed short
+                                ldw     R0, (BP)4
+                                // sign bit
+                                ani     R0, R1, #0x8000
+                                // positive
+                                beq     print_short_positive - $ - 2
+                                // negative
+                                ldq     45, R0
+                                stb     R0, (R2)
+                                adq     -1, R2
+        print_short_positive
+                                // fix current character
+                                adq     1, R2
+                                // string address
+                                ldw     R0, R2
+                                // syscall
+                                trp     #WRITE_EXC
+                                // clear stack
+                                adq     8, SP
+
+                                ldq     0, R0
+
+                                ldw     R2, (SP)+
+                                ldw     R1, (SP)+
+                                ldw     R0, (SP)+
+                                ldw     BP, (SP)+
+                                rts
+
+print_	LDQ 0, R1 //Parodi made
+		ADQ -2, SP
+		STW BP, (BP)
+		LDW BP, SP
+		SUB SP, R1, SP
+		LDW R0, BP
+		ADQ 4, R0
+		LDW R0, (R0)
+		LDW WR, #WRITE_EXC
+		TRP WR
+		LDW SP, BP
+		LDW BP, (SP)
+		ADQ 2, SP
+		LDW WR, (SP)
+		ADQ 2, SP
+		JEA (WR)
+
+
+
+main_		LDW SP, #STACK_ADRS // charge SP avec STACK_ADRS
+			LDQ NIL, BP // charge BP avec NIL 0
+
+			// prepare l environnement (frame) du programme principal qui n a aucune variable
+			LDQ 0, R1
+			ADQ -2, SP
+			STW BP, (SP)
+			LDW BP, SP
+			SUB SP, R1, SP
+
+			//un calcul
+			LDW R6, #-52
+			LDW R7, #33
+			SUB R7, R6, R6
+
+			//un hello world
+			LDW R1, #STRING0
+
+			ADQ -2, SP
+			STW R1, (SP)
+			JSR @print_
+
+			//STW R1, -(SP)
+			//jsr @print_string
+			jsr @print_newline
+
+
+			//l'affichage du calcul
+			LDW R1, R6
+			STW R1, -(SP)
+			jsr @print_short
+			jsr @print_newline
+
+
+			//fin
+			LDW SP, BP
+			LDW BP, (SP)
+			ADQ 2, SP
+			LDW WR, #EXIT_EXC
+			TRP WR

@@ -1,0 +1,388 @@
+plugins {
+    id 'java'
+    id 'application'
+    id "antlr"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClassName = "Main"
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    antlr "org.antlr:antlr:3.5.2"
+    implementation "org.antlr:antlr-runtime:3.5.2"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task BLOODY(type: JavaExec) {
+    group = "assembly"
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    if ( project.findProperty( 'args' ) != null){
+        println project.findProperty( 'args' )
+        args = [project.getProperty("args"), System.getProperty("args"), "yes"]
+    }
+}
+
+
+task ASM(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/ifWhile.blood", "no", "yes"]
+}
+
+task ASM2(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/ifWhile2.blood", "no", "yes"]
+}
+
+task esperluetteASM(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/esperluette.blood", "no", "yes"]
+}
+
+task runAssAffectation(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'AssAffectation'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/ass_affectation.blood", "no", "yes"]
+}
+
+task runAssArithmetiqueDebug(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'AssAffectation'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/ass_arithmetique.blood", "no", "yes"]
+}
+
+task runAssAriObj(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'AssAriObj'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/ass_ari_obj.blood", "yes", "yes"]
+}
+
+task runAssTestBoolean(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'AssTestBoolean'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/ass_testBoolean.blood", "no", "yes"]
+}
+
+
+task runexempleProgramme(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/exempleProgramme.blood", "no", "no"]
+}
+task runexempleProgrammeDebug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/exempleProgramme.blood", "yes", "no"]
+}
+
+task runOpalg(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_opalg.blood", "no", "no"]
+}
+task runOpalgDebug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_opalg.blood", "yes", "no"]
+}
+
+task runAppelFonction(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_appel_fonction.blood", "no", "no"]
+}
+task runAppelFonctionDebug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_appel_fonction.blood", "yes", "no"]
+}
+
+task runMain(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_main.blood", "no", "no"]
+}
+task runMainDebug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_main.blood", "yes", "no"]
+}
+task runifwhile(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_ifwhile.blood", "no", "no"]
+}
+task runifwhileDebug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_ifwhile.blood", "yes", "no"]
+}
+
+task runClasses_1(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_classes_1.blood", "no", "no"]
+}
+task runClasses_1Debug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_classes_1.blood", "yes", "no"]
+}
+
+task runPres2_ControlesSemantiques(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres2_controles_semantiques.blood", "no", "no"]
+}
+task runPres2_ControlesSemantiquesDebug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres2_controles_semantiques.blood", "yes", "no"]
+}
+task semantic_control_result(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/semantic_control.blood", "no", "no"]
+}
+
+task runPres2_TDS(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres2_tds.blood", "no", "no"]
+}
+task runPres2_TDSDebug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres2_tds.blood", "yes", "no"]
+}
+
+task runClasses_2(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_classes_2.blood", "no", "no"]
+}
+task runClasses_2Debug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/pres_classes_2.blood", "yes", "no"]
+}
+
+
+task runTestJoffrey(type: JavaExec) {
+    group = "application"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/testObjetJoffrey.blood", "no", "no"]
+}
+task runTestJoffreyDebug(type: JavaExec) {
+    group = "debug"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/testObjetJoffrey.blood", "yes", "no"]
+}
+task runTestJoffreyASM(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/testObjetJoffrey.blood", "no", "yes"]
+}
+
+// permanent tests
+task permanent_test_objet2(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/testObjet2.blood", "no", "yes"]
+}
+
+task permanent_test_objet3(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/testObjetJoffrey3.blood", "no", "yes"]
+}
+
+task permanent_test_if(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/testIf.blood", "no", "yes"]
+}
+task permanent_test_cast(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/testCast.blood", "no", "yes"]
+}
+task permanent_presentation(type: JavaExec) {
+    group = "assembly"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["test/assembly/quality_tests/presentation.blood", "no", "yes"]
+}
+
+
+task pipeline0Cast(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/testCast_3", "test/assembly/quality_tests/testCast_2"]
+}
+
+task pipeline(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/ifWhile_3", "test/assembly/quality_tests/ifWhile_2"]
+}
+
+task pipeline2(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/testIf_3", "test/assembly/quality_tests/testIf_2"]
+}
+
+task pipeline3(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/esperluette_3", "test/assembly/quality_tests/esperluette_2"]
+}
+
+task pipeline4MatthieuArithmetique(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/ass_arithmetique_3", "test/assembly/quality_tests/ass_arithmetique_2"]
+}
+
+task pipeline5IfWhile2(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/ifWhile2_3", "test/assembly/quality_tests/ifWhile2_2"]
+}
+
+task pipeline6testObjetJoffrey(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/testObjetJoffrey_3", "test/assembly/quality_tests/testObjetJoffrey_2"]
+}
+
+
+task pipeline7testObjet2(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/testObjet2_3", "test/assembly/quality_tests/testObjet2_2"]
+}
+
+task pipeline8testObjetJoffrey3(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/testObjetJoffrey3_3", "test/assembly/quality_tests/testObjetJoffrey3_2"]
+}
+
+task pipeline9ass_affectation(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/ass_affectation_3", "test/assembly/quality_tests/ass_affectation_2"]
+}
+
+task pipeline10ass_ari_obj(type: JavaExec) {
+    group = "pipeline"
+    applicationName = 'DisplayTable'
+    classpath = sourceSets.main.runtimeClasspath
+    main = "Main"
+    args = ["pipe", "test/assembly/quality_tests/ass_ari_obj_3", "test/assembly/quality_tests/ass_ari_obj_2"]
+}

@@ -1,0 +1,13 @@
+{
+/*constructeur  vide*/
+  moteur : Moteur := new Moteur();
+/*constructeur plusieurs arguments*/
+  v : Vehicule := new Vehicule("Ford", 4, moteur);
+  is
+  v.setMarque(moteur.getMarque());
+  v.setMarque(moteur.getMarque());
+/*appel sur un attribut*/
+  v.moteur.getVitesseMax();
+/*appel de fonction multiple*/
+  v.getMarque().getNationalite(param1, param2 , "vidange");
+}

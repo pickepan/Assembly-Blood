@@ -1,0 +1,47 @@
+class Article() is {
+  var prix : Integer;
+  var nom : String;
+  def Article(prix : Integer, nom : String) is{
+    this.prix := prix;
+    this.nom := nom;
+  }
+  /*def getPrixTTC() : Integer is{
+  }*/
+  def toString(): String is{
+    /*result := " prix: "&this.prix.toString()&", nom: "&this.nom;*/
+    result := "Article";
+  }
+}
+class Livre() extends Article is {
+  /*var static test: Integer;*/
+  var nbPages : Integer;
+  def Livre(prix : Integer, nom : String, nbPages : Integer) is{
+    this.nbPages := nbPages;
+    super(prix, nom);
+  }
+  /*def getPrixTTC() : Integer is{
+    x: Integer := this.prix * 105 / 100;
+    is
+    result := x;
+  }*/
+  def toString(): String is{
+    /*result := " nbPages: "&this.nbPages.toString();*/
+    result := super.toString();
+  }
+}
+{
+  test : String;
+  test2 : Integer;
+  livre1 : Livre;
+  prixCher : Integer := 161;
+  inflation : Integer := 20;
+  nombrePage : Integer := 1009;
+  nombrePageInutiles : Integer := 1000;
+  nombrePageStr : String;
+  is
+  /*Livre.test := 5;*/
+  livre1 := new Livre(prixCher * 20, "Dragon Book", nombrePage - nombrePageInutiles);
+  livre1.nbPages.toString().println();/* renvoit 9 */
+  livre1.prix.toString().println();/* renvoit 3220 */
+  livre1.nom.println();/* renvoit Dragon Book */
+}

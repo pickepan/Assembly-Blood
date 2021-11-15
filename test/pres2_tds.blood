@@ -1,0 +1,29 @@
+class ClasseDeTest() is {
+	def uneMethodeVide() is {                     /* voidTDS */
+	}
+
+	def uneMethodeAvecDesChosesDedans() is {                     /* only vars in the method */
+	    x : Integer;
+        y : Integer;
+        str : String;
+        is
+        x := 12;
+    }
+
+    def uneMethodeAvecDesChosesDedansEtDesParametres(var seb : String, var suz : Integer) is {   /* vars in the method + params */
+    	    x : Integer;
+            y : Integer;
+            str : String;
+            is
+            x := suz;
+        }
+}
+class ClasseDeTest2(var id : Integer, var id2 : Integer) is {
+    var variable : String;
+    var variableLaBonne : Integer;
+	def yAPasGrandChose() is {                     /* voidTDS */
+	}
+}
+
+{
+}

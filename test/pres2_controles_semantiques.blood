@@ -1,0 +1,134 @@
+class Composant(var id : Integer) is {
+    var variable : Saucisse;                                /* No class named Saucisse */
+    var variableLaBonne : Integer;
+
+    def Composant(var id : Integer) is {}                   /* OK : Constructor perfectly matches class */
+    def Composant(var id : Integer) is {}                   /* Constructor already exists */
+    def Composant(var idee : Integer) is {}                 /* Constructor argument value idee don't matches class definition*/
+    def Composant(var id : String) is {}                    /* Constructor argument value id don't matches class */
+    def Composant() is {}                                   /* Constructor don't matches class, no argument given */
+    def Composante() is {}                                  /* Constructor don't matches class name */
+
+    def reparer(var uneVariable : Integer) is {
+        if this.variable_qui_n_existe_pas then {} else{}         /* variable_qui_n_existe_pas does not exist :) */
+        if this.variable then {} else{}                          /* variable is of type Saucisse -> required Integer */
+        if this.variableLaBonne then {} else{}                   /* OK */
+    }
+
+    def reparerSansParam() is {}
+}
+
+class ClasseAvecOverride() extends Composant is {
+	def override nonOverride() is {}                         /* function 'nonOverride' does not exist in Composant */
+
+	def override reparerSansParam() is {
+		this.hasClone := 1;                                 /* 'hasClone' does not exist in ClassAvecOverride */
+		this.existePas();                                   /* function 'existePas' does not exist in ClassAvecOverride */
+	}
+
+	def fonction() is {
+		p : Pagaie;
+		is
+		p.a.fonction();                                     /* a is of type Integer, no function 'fonction' in Integer type */
+		p.w;                                                /* w does not exist in Pagaie */
+		p.getb().toString();                                /* OK : getb() -> Integer toString -> String */
+		p.getb().toString().println();                      /* OK : prints the previous String */
+		p.getb().toString().println().println();            /* incorrect use of println function -> can't be applied to smting null */
+		p.getb().toString().println().println().print();    /* idem */
+		p.lachenille().toString();                          /* incorrect use of toString function -> can't be applied to smting null */
+	}
+}
+
+class ClasseAvecResult() is {
+	def ClasseAvecResult() is {
+		result := 0;                                        /* no result in a constructor */
+	}
+}
+
+class UneClasseEnDouble() is {
+	var unTruc 	: Integer;
+}
+
+class UneClasseEnDouble() is {                              /* Class 'UneClasseEnDouble' is defined twice */
+	var unTruc 	: Integer;
+}
+
+class RAM() extends UneClasseQuiNExistePas is {             /* Class UneClasseQuiNExistePas does not exist :) */
+	var capacite 	: Integer;
+}
+
+class RAME() extends Composant is {
+	def uneMethodeAvecUnAppelDeFonction() is {
+		c : Composant := new Composant(12);
+		truc : UneClasseEnDouble;
+		p : Pagaie;
+		is
+		c.reparer(12, 13);                              /* wrong parameter number : reparer(Integer) */
+		c.reparer(truc);                                /* wrong parameter type */
+		p.unemethode(12,12).reparer("une erreur");      /* wrong parameter type ( p.unemethode(12,12) -> Composant, Composant.reparer is OK ) */
+		c.reparerSansParam();                           /* OK */
+
+
+		c.fonctionInexistante();                        /* fonctionInexistante does not exist :) */
+		d.rep();                                        /* d not declared + rep does not exist */
+		super.reparerSansParam();						/* OK */
+		super.fonction();								/* function fonction does not exist in Composant */
+	}
+}
+
+class Pagaie() is {
+  var a : Integer;
+  var b : Integer;
+
+  def geta() : Integer is {
+    result := a;                                        /* NOK, fine is :  result := this.a */
+    result := this.a;
+  }
+
+  def getb() : Integer := this.b
+
+  def getmoi() : Pagaie := this
+
+  def lachenille() is {
+    this.a := this.getmoi().getb();
+    this.unemethode(18, "oups");      /* Wrong param types */
+    result := "coucou";
+  }
+
+  def unemethode(x : Integer, y : Integer) : Composant is {
+    this.a := x;
+    this.b := y;
+    result := new Composant(x);
+  }
+}
+
+{
+	x : Integer;
+    x : Integer;                                        /* x is already defined */
+    y : Integer;
+	str : String;
+	c : Composant;
+	is
+	x := (3+2)/0;                                       /* division by 0 */
+	x := (10 + 10) / "ca merite un 20 au projet !";     /* division by string */
+	x := "ce projet est parfait" / 12;                  /* division of string */
+	x := "PCL" & "2" / 12;                              /* division of string concat */
+
+  result := "ca va peter";
+
+  x := "je" & "rage";                                 /* x is an Integer */
+  x := "beaucoup";                                    /* x is an Integer */
+  x := str;                                           /* x is an Integer */
+  x := 1 + c;                                         /* Cannot add Integer to Composant */
+  x := c;                                             /* Cannot store Composant in Integer */
+  x := 1 + -5;                                        /* OK */
+  str := 8 & "le 8 est une erreur";                   /* NOK : cannot concatenate Integer to String */
+  y := "coucou" & str;                                /* Cannot store str in integer */
+
+  (as Integer : x) := str;                            /* Cannot store String in Integer */
+  x := (as Integer: str);                             /* Cannot cast string to integer */
+  x := (as Integer: 1+2);                             /* OK */
+  x := (as Integer: 1+2-1+str);                       /* NOK : Cannot add Integer and String */
+  x := (as Integer : x) + y;                          /* OK */
+  x := (as Integer : x) + "Au secours" + str;         /* Not OK : cannot add Integer to String*/
+}

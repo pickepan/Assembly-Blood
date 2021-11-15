@@ -1,0 +1,31 @@
+class Objet() is{
+	var y: String;
+	var next: Objet;
+	def Objet(y:String) is{
+		this.y:=y;
+	}
+	def a():String is{
+		this.next:=new Objet("objet2\n");
+		this.y := "ca a change\n";
+		result:="toto\n";
+	}
+	def b(): Integer is{
+		result:= 5987;
+	}
+}
+{
+	x:Integer;
+	o:Objet;
+	str:String;
+	is
+	x:=5;
+	o:=new Objet("test\n");
+	o.y.print();
+	o.a().print();
+	o.y.print();
+	o.next.y.print();
+	str := o.next.b().toString();
+	str.println();
+	"sdlghlfdghlihQPHQPOHAQPOHFSPOOJFPDISJGF".println();
+
+}

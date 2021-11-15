@@ -1,0 +1,257 @@
+class A(var attr1 : Integer, var nom : String) is{
+  def A(attr1: Integer, nom : String) is{
+    this.attr1 := attr1;
+    this.nom := nom;
+  }
+
+  def func(): String is{
+    result:= "Dans A";
+  }
+}
+class B() extends A is{
+  var attr2: Integer;
+  def B(attr1: Integer, nom : String, attr2: Integer) is{
+    super(attr1, nom);
+    this.attr2 := attr2;
+  }
+  def func(): String is{
+    result:= "Dans B";
+  }
+}
+class C() extends B is{
+  var next : B;
+  def C(attr1: Integer, nom : String, attr2 : Integer) is{
+    super(attr1, nom, attr2);
+  }
+  def func(): String is{
+
+    result:= "Dans C";
+  }
+}
+class ArrayList() is{
+  var premier : Element;
+  var size : Integer;
+  def ArrayList() is{
+    this.size := 0;
+  }
+  def add(e : Element) is{
+    if this.size=0 then {
+      this.premier := e;
+      this.size := 1;
+    }
+    else{
+      i : Integer := 1;
+      elem : Element := this.premier;
+      is
+      while i < this.size do {
+        elem := elem.next;
+        i := i+1;
+      }
+      elem.next := e;
+      this.size := this.size + 1;
+    }
+  }
+  def remove(index : Integer) is{
+    if index < this.size then {
+      elem : Element := this.premier;
+      is
+      if index = 0 then {
+        this.premier := this.premier.next;
+      }
+      else {
+        elemPrecedent : Element := this.premier;
+        i : Integer := 1;
+        is
+        elem := elem.next;
+        while i < index do {
+          elemPrecedent := elem;
+          elem := elem.next;
+          i := i+1;
+        }
+        elemPrecedent.next := elem.next;
+      }
+      this.size := this.size - 1;
+    }
+    else {}
+  }
+  def get(index : Integer) : Element is {
+    if index < this.size then {
+      elem : Element := this.premier;
+      i : Integer := 0;
+      is
+      while i < index do {
+        elem := elem.next;
+        i := i+1;
+      }
+      result := elem;
+    }
+    else{}
+  }
+}
+class Element() is{
+  var ligne : Integer;
+  var col : Integer;
+  var next : Element;
+  def Element(ligne : Integer, col : Integer) is{
+    this.ligne := ligne;
+    this.col := col;
+  }
+}
+class Board() is{
+  var static pionAJouer : Integer;
+  var lignes : Integer;
+  var col : Integer;
+  var listePions : ArrayList;
+  def Board(lignes : Integer, col : Integer, nbPions : Integer) is{
+    i : Integer := 0;
+    is
+    this.listePions := new ArrayList();
+    this.lignes := lignes;
+    this.col := col;
+    while i < nbPions do {
+      this.listePions.add(new Element(0, i));
+      i := i+1;
+
+    }
+  }
+  def contains(ligne : Integer, col : Integer):Integer is{
+    i : Integer := 0;
+    trouve : Integer := 0;
+    elem : Element;
+    is
+    result := 0;
+    while (i < this.listePions.size) do{
+      elem := this.listePions.get(i);
+      i := i + 1;
+      if (elem.ligne = ligne) then{
+        if(elem.col = col) then{
+          result := 1;
+        }
+        else{}
+      }
+      else{}
+    }
+  }
+  def show() is {
+    i : Integer := 0;
+    j : Integer := 0;
+    is
+    while i < this.lignes do {
+      "|".print();
+      while j < this.col do {
+        if this.contains(i, j) then{
+          "O|".print();
+        }
+        else{
+          " |".print();
+        }
+        j := j+1;
+      }
+      "\n".print();
+      i := i +1;
+      j := 0;
+    }
+  }
+  def play()is{
+    elem : Element;
+    x: String;
+    is
+    elem := this.listePions.get(0);
+    Board.pionAJouer := 0;
+    while this.listePions.size > 0 do{
+      if elem.col < this.col-1 then{
+        if elem.col = this.col-2 then{
+          if this.contains(elem.ligne, elem.col+1)=0 then{
+            this.listePions.get(Board.pionAJouer).col := elem.col+1;
+          }
+          else{}
+        }
+        else{
+          if this.contains(elem.ligne, elem.col+2)=0 then{
+            this.listePions.get(Board.pionAJouer).col := elem.col+2;
+          }
+          else{}
+        }
+      }
+      else{
+        if elem.ligne < this.lignes-1 then{
+          if elem.ligne = this.lignes-2 then{
+            if this.contains(elem.ligne+1, elem.col)=0 then{
+              this.listePions.get(Board.pionAJouer).ligne := elem.ligne+1;
+            }
+            else{}
+
+          }
+          else{
+            if this.contains(elem.ligne+2, elem.col)=0 then{
+              this.listePions.get(Board.pionAJouer).ligne := elem.ligne+2;
+            }
+            else{}
+          }
+        }
+        else{
+          this.listePions.remove(0);
+        }
+      }
+      "\n\n\n".println();
+      this.show();
+
+      if(Board.pionAJouer < this.listePions.size-1) then{
+        Board.pionAJouer := Board.pionAJouer +1;
+      }
+      else{
+         Board.pionAJouer := 0;
+      }
+      elem := this.listePions.get(Board.pionAJouer);
+      "Pion a jouer : ".print();
+      Board.pionAJouer.toString().println();
+    }
+  }
+  def static rules() is{
+    timer : Integer := 7000;
+    is
+    "\n\nPas besoin de regles c'est pas toi qui joues !\n\n\n\n".println();
+"        @@@@@@           @@@@@@
+      @@@@@@@@@@       @@@@@@@@@@
+    @@@@@@@@@@@@@@   @@@@@@@@@@@@@@
+  @@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@
+ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+      @@@@@@@@@@@@@@@@@@@@@@@@@@@
+        @@@@@@@@@@@@@@@@@@@@@@@
+          @@@@@@@@@@@@@@@@@@@
+            @@@@@@@@@@@@@@@
+              @@@@@@@@@@@
+                @@@@@@@
+                  @@@
+                   @                     \n\n\n\n".println();
+
+    while timer > 0 do{
+      timer := timer -1;
+    }
+  }
+}
+{
+  plateau : Board := new Board(5, 9, 4);
+  is
+  Board.rules();
+  plateau.play();
+
+
+  /*obj : C := new C(5, "Un nom important", 10);
+  obj2 : B := new C(12, "ca compile", 9);
+  is
+  obj.func().println();
+  (as B : obj).func().println();
+  (as A : obj).func().println();
+  obj2.func().println();
+  obj.next := obj2;
+  obj.next.nom.println();
+  (as A:(as B : obj.next)).func().println();*/
+}

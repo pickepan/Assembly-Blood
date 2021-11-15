@@ -1,0 +1,41 @@
+{
+  x : String;
+  y : Integer := 0;
+  z : Integer := 1;
+  t : Integer := 1;
+  is
+
+  while t < 10 do {
+      t := 1 + t;
+  }
+  "fin while 1".println();
+  while t < 20 do {
+        t := 1 + t;
+  }
+  "fin while 2".println();
+  while t < 30000 do {
+   t := 1 + t;
+
+  }
+  "fin while 3".println();
+  if( z + 0) then {
+    t := 30000 + 1;
+  }
+  else{
+    t := 7;
+  }
+  "la".println();
+   x := t.toString();
+   x.println();
+   t := 10 - 1 - 10;
+   x := (12 + 3).toString();
+   x.println();
+   x := (12 + 3 - 22).toString();
+   x.println();
+   x := (1).toString();
+   x.println();
+   x := (12).toString();
+   x.println();
+   x := t.toString();
+   x.println();
+}

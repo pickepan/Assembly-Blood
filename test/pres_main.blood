@@ -1,0 +1,19 @@
+{
+	ordi : Ordinateur := new Ordinateur(0);
+	cg : CarteGraphique := new CarteGraphique(0);
+	proc : Processeur := new Processeur(1, 4, 4, "i5");
+	ram1 : RAM := new RAM(2, 4, "DDR4");
+	ram2 : RAM := new RAM(3, 4, "DDR4");
+	is
+
+	ordi.allumer();
+
+	if proc.estEnPanne() = 1 then
+		"Le processeur est en panne !".println();
+	else
+		"Le processeur fonctionne".println();
+
+	while ram2.estEnPanne() = 1 do
+		"La RAM est en panne. Merci de réparer.".println();
+
+}

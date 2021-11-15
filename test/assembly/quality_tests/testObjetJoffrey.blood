@@ -1,0 +1,43 @@
+class Livre() is {
+  var static testStr : String;
+  var static id: Integer := 15;
+  var static masterBook: Livre;
+  var nbPages : Integer;
+  var titre : String;
+  def Livre(nbPages : Integer, titre : String) is{
+    x:String;
+    is
+    x := nbPages.toString();
+    x.println();
+    this.nbPages := nbPages;
+    this.titre := titre;
+  }
+  def testStatic() is{
+    x :Integer;
+    is
+
+    x := Livre.id;
+    x.toString().println();
+  }
+}
+{
+  livre0 : Livre := new Livre(-1, "Dragon Book");
+  livre1 : Livre;
+  livre2 : Livre;
+  str : String;
+  is
+  Livre.masterBook := livre0;
+
+  livre1 := new Livre(1000, "Livre imbuvable");
+
+  Livre.id := 12;
+  Livre.id.toString().println();
+  Livre.testStr := "yo je suis static";
+  Livre.testStr.println();
+  livre2 := new Livre(5000, "LOTR");
+  livre2.nbPages.toString().println();
+
+
+  Livre.masterBook.titre.println();
+
+}

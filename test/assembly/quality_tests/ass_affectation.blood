@@ -1,0 +1,17 @@
+{
+	x : Integer;
+	y : Integer;
+	z : String;
+	is
+	x := 1;
+	y := 10;
+	y := (((((3 > 1)))));
+	z := y.toString();
+	z.println();
+	y := (((((3 < 1)))));
+	z := y.toString();
+    z.println();
+    y := (((((y || 1)))));
+    z := y.toString();
+    z.println();
+}

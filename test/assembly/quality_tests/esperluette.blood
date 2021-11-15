@@ -1,0 +1,22 @@
+class Test() is {
+	var y : String;
+
+	def Test() is {
+		this.y := "coucou" & "comment ca va ici?";
+		this.y.println();
+	}
+}
+
+{
+	x : Integer;
+	y : Integer;
+	z : Integer;
+	t : String;
+	myTest : Test;
+	is
+	t := "coucou" & "les amis" & "la famille" & "florent" & "anais" ;
+	t.println();
+	t := "hey salut!";
+    t.println();
+    myTest := new Test();
+}

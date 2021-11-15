@@ -1,0 +1,20 @@
+class Test() is {
+	var x : Integer;
+
+	def Test() is {
+		this.x := 8;
+		this.x := 5 + 3;
+		this.x.toString().println();
+	}
+}
+
+{
+	t : Test;
+	x : Integer;
+	y : Integer;
+	is
+	t := new Test();
+	x := 3;
+	y := 1;
+	x := x + y;
+}

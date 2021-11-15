@@ -1,0 +1,44 @@
+class A(var attr1 : Integer, var nom : String) is{
+
+
+  def A(attr1: Integer, nom : String) is{
+    this.attr1 := attr1;
+    this.nom := nom;
+  }
+
+  def func(): String is{
+    result:= "Dans A";
+  }
+}
+class B() extends A is{
+  var attr2: Integer;
+  def B(attr1: Integer, nom : String, attr2: Integer) is{
+    super(attr1, nom);
+    this.attr2 := attr2;
+  }
+  def func(): String is{
+    result:= "Dans B";
+  }
+}
+class C() extends B is{
+  var next : B;
+  def C(attr1: Integer, nom : String, attr2 : Integer) is{
+    super(attr1, nom, attr2);
+  }
+  def func(): String is{
+
+    result:= "Dans C";
+  }
+}
+{
+  obj : C := new C(5, "Un nom important", 10);
+  obj2 : B := new C(12, "la compile", 9);
+  is
+  obj.func().println();
+  (as B : obj).func().println();
+  (as A : obj).func().println();
+  obj2.func().println();
+  obj.next := obj2;
+  obj.next.nom.println();
+  (as A:(as B : obj.next)).func().println();
+}

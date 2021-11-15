@@ -1,0 +1,18 @@
+class Composant(var id : Integer) is {
+	
+	var estEnPanne : Integer;
+
+	def declencherPanne() is {
+		estEnPanne := 1;
+	}
+
+	def reparer() is {
+		if estEnPanne = 1 then
+			estEnPanne := 0;
+		else
+			"Le composant fonctionne correctement.".println();
+	}
+
+}
+
+{}

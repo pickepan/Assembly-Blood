@@ -1,0 +1,29 @@
+class Ordinateur(var id : Integer) is {
+	var carteGraphique 	: CarteGraphique;
+	var processeur		: Processeur;
+
+	var estAllume		: Integer;
+
+	def allumer() is {
+		this.estAllume := 1;
+	}
+
+	def Ordinateur(var id_constructeur : Integer) is {
+		super(id_constructeur);
+		this.estAllume := 0;
+		this.carteGraphique := nvidia;
+		this.processeur := intel;
+	}
+
+	def eteindre() is {
+		this.estAllume := 0;
+	}
+
+	def carteGraphiqueSetter(var carteGraphique : CarteGraphique) is {
+		this.carteGraphique := carteGraphique;
+	}
+} 
+
+{
+	
+}

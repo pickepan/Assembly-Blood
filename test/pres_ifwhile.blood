@@ -1,0 +1,36 @@
+class Composant(var id : Integer) is {
+	
+	var estEnPanne : Integer;
+
+	def declencherPanne() is {
+		estEnPanne := 1;
+	}
+
+	def reparer() is {
+		if estEnPanne = 1 then {
+			while composant.neFonctionnePas() = 1 do
+				while composant.enStock() = 1 do 
+					"changer le composant".println();
+				
+		}
+				
+		else {
+			
+			"n'est pas en panne".println();
+			if numeroClient = 1 then {
+				while appel.client() = 0 do {
+					if messagerie = 1 then {
+						"laisser un message".println();
+					}
+					else
+						"prendre rendez-vous".println();
+				}	
+
+			}
+			else 
+				"attendre".println();
+		}
+	}
+
+}
+{}

@@ -1,0 +1,31 @@
+{
+  x:String;
+  y : Integer := 0;
+  z : Integer := 0;
+  t : Integer := 1;
+  is
+  if (t) then{
+    "1".println();
+    z := 0;
+    if(y) then{
+        "2".println();
+    }
+    else{
+        "3".println();
+        if z then{
+            "5".println();
+        }
+        else{
+            "6".println();
+        }
+        z := 3;
+        "fin 3".println();
+    }
+
+  }
+  else{
+    "4".println();
+  }
+  x := z.toString();
+  x.println();
+}

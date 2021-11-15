@@ -1,0 +1,14 @@
+Test if ---------------
+
+Test1 : OK -> if variable = int
+Test2 : OK -> if variable (variable:=1)
+Test3 : OK -> if variable (variable:=10)
+Test4 : OK -> if variable (variable:=0)
+Test5 : OK -> if variable = operation
+Test6 : OK -> if 0
+Test7 : OK -> if 1
+vrai
+faux
+
+
+

@@ -1,0 +1,51 @@
+class Test() is {
+	var x : Integer;
+
+	def Test() is {
+		this.x := 8;
+	}
+
+	def getx() : Integer is {
+		result := this.x;
+	}
+
+	def setx(x : Integer) is {
+		this.x := x;
+		this.x.toString().println();
+	}
+
+	def thetraitement() is {
+		y : Integer;
+		is
+		y := 5;
+		this.x := this.x + y;
+		y := this.x + 18;
+		this.x.toString().println();
+		y.toString().println();
+	}
+}
+
+{
+	x : Integer;
+	y : Integer;
+	z : Integer;
+	s : String;
+	t : Test;
+	is
+	x := 3;
+	y := 10;
+	z := 7;
+	t := new Test();
+	t.thetraitement();
+	"\n".println();
+	t.setx(y);
+	"\n".println();
+	t.thetraitement();
+	"\n".println();
+	t.x := 54 - 32;
+	t.x.toString().println();
+	"\n".println();
+
+	s := x.toString();
+	s.println();
+}
