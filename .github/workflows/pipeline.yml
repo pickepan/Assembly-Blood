@@ -1,0 +1,39 @@
+image: gradle:jdk13
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.internal.launcher.welcomeMessageEnabled=false"
+
+cache:
+  paths:
+    - .gradle/caches
+    - .gradle/wrapper
+
+stages:
+  - build
+  - debug
+  - deploy
+  - quality
+
+build_staging:
+  image: openjdk
+  stage: build
+  script:
+    - ./test/pipeline_build_normal_tasks.sh
+
+debug_staging:
+  image: openjdk
+  stage: debug
+  script:
+    - ./test/pipeline_debug_tasks.sh
+
+deploy_staging:
+  image: openjdk
+  stage: deploy
+  script:
+    - ./test/assembly_and_launch.sh
+
+quality_staging:
+  image: openjdk
+  stage: quality
+  script:
+    - ./test/pipeline_check_permanent_tests_quality.sh
